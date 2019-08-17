@@ -1,0 +1,23 @@
+.note-sidebar {
+
+    width: 250px;
+    padding: 0 10px 0;
+}
+
+.goback-button {
+
+    border: 1px solid black;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+}
+
+.goback-button:hover {
+    cursor: pointer;
+}
+
+
+.note-sidebar-folder {
+    text-align: right;
+    padding-right: 20px;
+}
