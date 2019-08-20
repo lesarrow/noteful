@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import NoteContext from './NoteContext.js'
 
 import './Note.css';
 
@@ -14,21 +15,41 @@ function getDateString(dateObj) {
     return retStr;
 }
 
+function deleteNote(id, deleteNoteCB) {
+
+    console.log(`Delete clicked ${id}`);
+    fetch(`http://localhost:9090/notes/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        }
+    }).then(response => {
+        deleteNoteCB(id);
+    }).catch (err => {
+        console.log("Failed note deletion");
+    })
+
+}
+
 class Note extends React.Component {
 
     render() {
 
         var note = this.props.note;
         return (
-            <div className="note-list-item" key={note.id}>
-                <Link to={ {pathname: `/note/${note.id}`, state: {note: note}}}>
-                    <h2>{note.name}</h2>
-                </Link>
-                <div className="note-list-item-details">
-                    <p>Date modified on {getDateString(new Date(note.modified))}</p>
-                    <button>Delete Note</button>
-                </div>
-            </div>
+            <NoteContext.Consumer>
+                {(value) => {
+                    return ( <div className="note-list-item" key={note.id}>
+                    <Link to={ {pathname: `/note/${note.id}`, state: {note: note}}}>
+                        <h2>{note.name}</h2>
+                    </Link>
+                    <div className="note-list-item-details">
+                        <p>Date modified on {getDateString(new Date(note.modified))}</p>
+                        <button onClick={() => deleteNote(this.props.note.id, value.deleteNoteCB)}>Delete Note</button>
+                    </div>
+                    </div> )
+                }}
+            </NoteContext.Consumer>
         )
     }
 }
