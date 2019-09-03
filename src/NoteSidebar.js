@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './NoteSidebar.css';
 
@@ -19,6 +20,12 @@ class NoteSidebar extends React.Component {
             </div>
         )
     }
+}
+
+NoteSidebar.propTypes = {
+    folders: PropTypes.array.isRequired,
+    note: PropTypes.object.isRequired,
+    onGoBack: PropTypes.func.isRequired
 }
 
 export default NoteSidebar;

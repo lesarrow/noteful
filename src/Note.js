@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import NoteContext from './NoteContext.js'
+import NoteContext from './NoteContext.js';
+import NoteError from './NoteError.js';
+import PropTypes from 'prop-types';
 
 import './Note.css';
 
@@ -17,7 +19,6 @@ function getDateString(dateObj) {
 
 function deleteNote(id, deleteNoteCB) {
 
-    console.log(`Delete clicked ${id}`);
     fetch(`http://localhost:9090/notes/${id}`, {
         method: 'DELETE',
         headers: {
@@ -39,19 +40,27 @@ class Note extends React.Component {
         return (
             <NoteContext.Consumer>
                 {(value) => {
-                    return ( <div className="note-list-item" key={note.id}>
-                    <Link to={ {pathname: `/note/${note.id}`, state: {note: note}}}>
-                        <h2>{note.name}</h2>
-                    </Link>
-                    <div className="note-list-item-details">
-                        <p>Date modified on {getDateString(new Date(note.modified))}</p>
-                        <button onClick={() => deleteNote(this.props.note.id, value.deleteNoteCB)}>Delete Note</button>
-                    </div>
-                    </div> )
+                    return ( 
+                        <NoteError>
+                            <div className="note-list-item" key={note.id}>
+                                <Link to={ {pathname: `/note/${note.id}`, state: {note: note}}}>
+                                    <h2>{note.name}</h2>
+                                </Link>
+                                <div className="note-list-item-details">
+                                    <p>Date modified on {getDateString(new Date(note.modified))}</p>
+                                    <button onClick={() => deleteNote(this.props.note.id, value.deleteNoteCB)}>Delete Note</button>
+                                </div>
+                            </div>
+                        </NoteError>
+                    )
                 }}
             </NoteContext.Consumer>
         )
     }
+}
+
+Note.propTypes = {
+    note: PropTypes.object.isRequired
 }
 
 export default Note;

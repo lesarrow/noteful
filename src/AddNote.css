@@ -1,0 +1,18 @@
+.addnote-form {
+   
+    display: flex;
+    flex-direction: column;
+}
+
+.addnote-name {
+    margin: 10px 0 20px 0;
+}
+
+.addnote-submit {
+    width: 100px;
+    margin: 10px auto 0;
+}
+
+.addnote-folder {
+    margin-bottom: 20px;
+}

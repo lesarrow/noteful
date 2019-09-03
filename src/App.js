@@ -1,29 +1,14 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import './App.css';
-import data from './dummy-store.js';
 
 import FolderList from './FolderList.js';
 import NoteList from './NoteList.js';
 import NoteSidebar from './NoteSidebar.js'
 import Note from './Note.js';
 import NoteContext from './NoteContext.js';
-
-
-function buildParagraphsBySentence(inputStr) {
-
-  var retval=[];
-  const res = inputStr.split(".");
-
-  for (var i=0; i<res.length; i++) {
-    retval.push(<p class="note-content">{`${res[i]}.`}</p>);
-  }
-
-  return retval;
-
-
-}
-
+import AddFolder from './AddFolder.js';
+import AddNote from './AddNote.js';
 
 class App extends React.Component {
 
@@ -93,6 +78,26 @@ class App extends React.Component {
     });
   }
 
+  addFolder = (folder) => {
+
+    const newFolders = this.state.folders;
+    newFolders.push(folder);
+
+    this.setState({
+      folders: newFolders
+    });
+  }
+
+  addNote = (note) => {
+
+    const newNotes = this.state.notes;
+    newNotes.push(note);
+
+    this.setState({
+      notes: newNotes
+    });
+  }
+
   render() {
 
     return (
@@ -125,7 +130,7 @@ class App extends React.Component {
                   <NoteList  notes={this.state.notes} />
                 }              
               />
-              <Route path='/folder/:folderId' 
+              <Route exact path='/folder/:folderId' 
                 render={(props) => 
                   <NoteList  notes={this.state.notes} filter={props.match.params.folderId} />
                 }
@@ -136,6 +141,24 @@ class App extends React.Component {
                     <div className="note-view">
                       <Note note={props.location.state.note} />
                       <p className="note-content">{props.location.state.note.content}</p>
+                    </div>
+                  )}
+                }
+              />
+              <Route path='/folder/forms/AddFolder'
+                render={() => {
+                  return (
+                    <div>
+                      <AddFolder addFolderCB={this.addFolder}/>
+                    </div>
+                  )}
+                }
+              />
+              <Route path='/folder/forms/AddNote'
+                render={() => {
+                  return (
+                    <div>
+                      <AddNote addNoteCB={this.addNote} folders={this.state.folders} />
                     </div>
                   )}
                 }

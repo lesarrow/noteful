@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Note from './Note.js';
+import PropTypes from 'prop-types';
 
 import './NoteList.css';
 
@@ -22,10 +23,17 @@ class NoteList extends React.Component {
                 {filteredNotes.map(note => {
                     return <Note key={note.id} note={note} />
                 })}
-                <button>Add note</button>
+                <NavLink to={{pathname: "/folder/forms/AddNote"}} >
+                    <button>Add note</button>
+                </NavLink>
             </div>
         )
     }
+}
+
+NoteList.propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    filter: PropTypes.string
 }
 
 export default NoteList;
