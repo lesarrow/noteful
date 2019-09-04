@@ -80,8 +80,8 @@ class AddNote extends React.Component {
                     </div>
                     <div>
                         <label htmlFor="content">Note Content</label>
-                        <textarea rows="5" cols="100" name="content" id="content" defaultValue="Enter your note" 
-                            onChange={e=>this.contentListener(e.target.value)} ref={this.noteInput} />
+                        <textarea rows="5" cols="100" name="content" id="content" placeholder="Enter your note" 
+                            onChange={e=>this.contentListener(e.target.value)} ref={this.noteInput} required />
                     </div>
                     <button type="submit" className="addnote-submit">Submit</button>
                 </form>       

@@ -2,13 +2,13 @@ import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import './App.css';
 
-import FolderList from './FolderList.js';
-import NoteList from './NoteList.js';
-import NoteSidebar from './NoteSidebar.js'
-import Note from './Note.js';
-import NoteContext from './NoteContext.js';
-import AddFolder from './AddFolder.js';
-import AddNote from './AddNote.js';
+import FolderList from './folders/FolderList.js';
+import NoteList from './notes/NoteList.js';
+import NoteSidebar from './notes/NoteSidebar.js'
+import Note from './notes/Note.js';
+import NoteContext from './notes/NoteContext.js';
+import AddFolder from './folders/AddFolder.js';
+import AddNote from './notes/AddNote.js';
 
 class App extends React.Component {
 
